@@ -7,64 +7,62 @@
 use core::cmp::Ordering;
 use core::hash::{Hash, Hasher};
 
-#[cfg(all(
-    not(all(target_family = "wasm", target_feature = "simd128")),
-    not(target_feature = "sse2"),
-    not(target_feature = "avx"),
-    not(target_feature = "avx2"),
-))]
+// #[cfg(all(
+//     not(all(target_family = "wasm", target_feature = "simd128")),
+//     not(target_feature = "sse2"),
+//     not(target_feature = "avx"),
+// ))]
 mod default;
-#[cfg(all(
-    not(all(target_family = "wasm", target_feature = "simd128")),
-    not(target_feature = "sse2"),
-    not(target_feature = "avx"),
-    not(target_feature = "avx2"),
-))]
+// #[cfg(all(
+//     not(all(target_family = "wasm", target_feature = "simd128")),
+//     not(target_feature = "sse2"),
+//     not(target_feature = "avx"),
+// ))]
 pub use self::default::*;
 
-#[cfg(all(
-    any(target_arch = "x86", target_arch = "x86_64"),
-    target_feature = "sse2",
-    not(target_feature = "avx"),
-    not(target_feature = "avx2"),
-))]
-mod sse2;
-#[cfg(all(
-    any(target_arch = "x86", target_arch = "x86_64"),
-    target_feature = "sse2",
-    not(target_feature = "avx"),
-    not(target_feature = "avx2"),
-))]
-pub use self::sse2::*;
+// #[cfg(all(
+//     any(target_arch = "x86", target_arch = "x86_64"),
+//     target_feature = "sse2",
+//     not(target_feature = "avx"),
+//     not(target_feature = "avx2"),
+// ))]
+// mod sse2;
+// #[cfg(all(
+//     any(target_arch = "x86", target_arch = "x86_64"),
+//     target_feature = "sse2",
+//     not(target_feature = "avx"),
+//     not(target_feature = "avx2"),
+// ))]
+// pub use self::sse2::*;
+// 
+// #[cfg(all(
+//     any(target_arch = "x86", target_arch = "x86_64"),
+//     target_feature = "avx",
+//     not(target_feature = "avx2")
+// ))]
+// mod avx;
+// #[cfg(all(
+//     any(target_arch = "x86", target_arch = "x86_64"),
+//     target_feature = "avx",
+//     not(target_feature = "avx2")
+// ))]
+// pub use self::avx::*;
 
-#[cfg(all(
-    any(target_arch = "x86", target_arch = "x86_64"),
-    target_feature = "avx",
-    not(target_feature = "avx2")
-))]
-mod avx;
-#[cfg(all(
-    any(target_arch = "x86", target_arch = "x86_64"),
-    target_feature = "avx",
-    not(target_feature = "avx2")
-))]
-pub use self::avx::*;
+// #[cfg(all(
+//     any(target_arch = "x86", target_arch = "x86_64"),
+//     target_feature = "avx2"
+// ))]
+// pub mod avx2;
+// #[cfg(all(
+//     any(target_arch = "x86", target_arch = "x86_64"),
+//     target_feature = "avx2"
+// ))]
+// pub use self::avx2::*;
 
-#[cfg(all(
-    any(target_arch = "x86", target_arch = "x86_64"),
-    target_feature = "avx2"
-))]
-mod avx2;
-#[cfg(all(
-    any(target_arch = "x86", target_arch = "x86_64"),
-    target_feature = "avx2"
-))]
-pub use self::avx2::*;
-
-#[cfg(all(target_family = "wasm", target_feature = "simd128"))]
-mod wasm;
-#[cfg(all(target_family = "wasm", target_feature = "simd128"))]
-pub use self::wasm::*;
+// #[cfg(all(target_family = "wasm", target_feature = "simd128"))]
+// mod wasm;
+// #[cfg(all(target_family = "wasm", target_feature = "simd128"))]
+// pub use self::wasm::*;
 
 impl Block {
     pub const USIZE_COUNT: usize = core::mem::size_of::<Self>() / core::mem::size_of::<usize>();

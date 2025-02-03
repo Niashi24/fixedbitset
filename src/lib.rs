@@ -19,7 +19,7 @@
 extern crate alloc;
 use alloc::{vec, vec::Vec};
 
-mod block;
+pub mod block;
 mod range;
 
 #[cfg(feature = "serde")]
